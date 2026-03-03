@@ -1,0 +1,33 @@
+# UiPath
+
+# Folders
+*/.local/
+*/.localps/
+*/.settings/
+*/.tmh/
+*/.versions/
+*/.objects/
+*/.screenshots/
+*/.storage/
+*/bin/
+*/obj/
+*/.cache/
+*/.vs/
+*/.user/
+
+# Files
+*/.project.lock.json
+
+# Data folders (input/output)
+StoreRevenue_Dispatcher/Data/Input/
+StoreRevenue_Dispatcher/Data/Output/
+
+# Output files
+*.xlsx
+*.pdf
+*.log
+
+# Other
+*.screenshot
+*.xaml.bk
+
