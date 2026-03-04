@@ -87,10 +87,14 @@
       <AssemblyReference>UiPath.System.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Workflow</AssemblyReference>
       <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>NPOI.Core</AssemblyReference>
+      <AssemblyReference>System.Linq.Async</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Process_CalculateData" sap:VirtualizedContainerService.HintSize="1209,3654" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Process_CalculateData" sap:VirtualizedContainerService.HintSize="1209,3431" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
+      <Variable x:TypeArguments="scg:Dictionary(x:String, s:String[])" Name="dictStoreInfo" />
       <Variable x:TypeArguments="scg:Dictionary(x:String, scg:List(x:Double))" Name="dict" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
@@ -98,14 +102,14 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="488,175" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="514,175" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info">
       <ui:LogMessage.Message>
         <InArgument x:TypeArguments="x:Object">
           <CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_27">"Start the process caculate data"</CSharpValue>
         </InArgument>
       </ui:LogMessage.Message>
     </ui:LogMessage>
-    <Assign DisplayName="Assign dict" sap:VirtualizedContainerService.HintSize="488,175" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign DisplayName="Assign dict" sap:VirtualizedContainerService.HintSize="514,175" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="scg:Dictionary(x:String, scg:List(x:Double))">
           <CSharpReference x:TypeArguments="scg:Dictionary(x:String, scg:List(x:Double))" sap2010:WorkflowViewState.IdRef="CSharpReference`1_16">dict</CSharpReference>
@@ -123,13 +127,79 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="488,1962" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+    <Assign sap:VirtualizedContainerService.HintSize="514,175" sap2010:WorkflowViewState.IdRef="Assign_10">
+      <Assign.To>
+        <OutArgument x:TypeArguments="scg:Dictionary(x:String, s:String[])">
+          <CSharpReference x:TypeArguments="scg:Dictionary(x:String, s:String[])" sap2010:WorkflowViewState.IdRef="CSharpReference`1_31">dictStoreInfo</CSharpReference>
+        </OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="scg:Dictionary(x:String, s:String[])">
+          <CSharpValue x:TypeArguments="scg:Dictionary(x:String, s:String[])" sap2010:WorkflowViewState.IdRef="CSharpValue`1_32">new Dictionary&lt;string, string[]&gt;()</CSharpValue>
+        </InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="514,413" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="486,1780" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="512,231" sap2010:WorkflowViewState.IdRef="Sequence_8">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="key" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="478,171" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+              <ui:MultipleAssign.AssignOperations>
+                <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="x:String">
+                        <CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_34">key</CSharpReference>
+                      </OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="x:String">
+                        <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_36">Convert.ToString(row["Mã CH"]).Trim()</CSharpValue>
+                      </InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="s:String[]">
+                        <CSharpReference x:TypeArguments="s:String[]" sap2010:WorkflowViewState.IdRef="CSharpReference`1_35">dictStoreInfo[key]</CSharpReference>
+                      </OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="s:String[]">
+                        <CSharpValue x:TypeArguments="s:String[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_37">new string[] { Convert.ToString(row["Tên CH"]).Trim(), Convert.ToString(row["Địa Chỉ"]).Trim() }</CSharpValue>
+                      </InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                </scg:List>
+              </ui:MultipleAssign.AssignOperations>
+            </ui:MultipleAssign>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEachRow.Body>
+      <ui:ForEachRow.DataTable>
+        <InArgument x:TypeArguments="sd:DataTable">
+          <CSharpValue x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_33">in_dtStoreList</CSharpValue>
+        </InArgument>
+      </ui:ForEachRow.DataTable>
+    </ui:ForEachRow>
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="514,1572" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+      <ui:ForEachRow.Body>
+        <ActivityAction x:TypeArguments="sd:DataRow">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="450,1390" sap2010:WorkflowViewState.IdRef="Sequence_6">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="maCH" />
               <Variable x:TypeArguments="x:Double" Name="doanhThu" />
@@ -141,15 +211,15 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Assign sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_2">
+            <Assign sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_2">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">
-                  <CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_17">maCH</CSharpReference>
+                  <CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_27">maCH</CSharpReference>
                 </OutArgument>
               </Assign.To>
               <Assign.Value>
                 <InArgument x:TypeArguments="x:String">
-                  <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_3">row["Mã CH"].ToString().Trim()</CSharpValue>
+                  <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_31">Convert.ToString(row["Mã CH"]).Trim()</CSharpValue>
                 </InArgument>
               </Assign.Value>
               <sap:WorkflowViewStateService.ViewState>
@@ -159,7 +229,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </Assign>
-            <If DisplayName="If check mCH is null or white space" sap:VirtualizedContainerService.HintSize="452,447" sap2010:WorkflowViewState.IdRef="If_1">
+            <If DisplayName="If check mCH is null or white space" sap:VirtualizedContainerService.HintSize="416,57" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Condition>
                 <InArgument x:TypeArguments="x:Boolean">
                   <CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_4">string.IsNullOrWhiteSpace(maCH)</CSharpValue>
@@ -167,7 +237,7 @@
               </If.Condition>
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
@@ -199,7 +269,7 @@
                 </Sequence>
               </If.Else>
             </If>
-            <Assign DisplayName="Assign doanhThu" sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_3">
+            <Assign DisplayName="Assign doanhThu" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_3">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:Double">
                   <CSharpReference x:TypeArguments="x:Double" sap2010:WorkflowViewState.IdRef="CSharpReference`1_18">doanhThu</CSharpReference>
@@ -207,7 +277,7 @@
               </Assign.To>
               <Assign.Value>
                 <InArgument x:TypeArguments="x:Double">
-                  <CSharpValue x:TypeArguments="x:Double" sap2010:WorkflowViewState.IdRef="CSharpValue`1_5">Convert.ToDouble(row["Doanh Thu"])</CSharpValue>
+                  <CSharpValue x:TypeArguments="x:Double" sap2010:WorkflowViewState.IdRef="CSharpValue`1_40">row["Doanh Thu"] == DBNull.Value || string.IsNullOrWhiteSpace(row["Doanh Thu"].ToString()) ? 0.0 : Convert.ToDouble(row["Doanh Thu"])</CSharpValue>
                 </InArgument>
               </Assign.Value>
               <sap:WorkflowViewStateService.ViewState>
@@ -217,7 +287,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </Assign>
-            <Assign DisplayName="Assign chiPhi" sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_4">
+            <Assign DisplayName="Assign chiPhi" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_4">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:Double">
                   <CSharpReference x:TypeArguments="x:Double" sap2010:WorkflowViewState.IdRef="CSharpReference`1_19">chiPhi</CSharpReference>
@@ -225,7 +295,7 @@
               </Assign.To>
               <Assign.Value>
                 <InArgument x:TypeArguments="x:Double">
-                  <CSharpValue x:TypeArguments="x:Double" sap2010:WorkflowViewState.IdRef="CSharpValue`1_6">Convert.ToDouble(row["Chi Phí"])</CSharpValue>
+                  <CSharpValue x:TypeArguments="x:Double" sap2010:WorkflowViewState.IdRef="CSharpValue`1_41">row["Chi Phí"] == DBNull.Value || string.IsNullOrWhiteSpace(row["Chi Phí"].ToString()) ? 0.0 : Convert.ToDouble(row["Chi Phí"])</CSharpValue>
                 </InArgument>
               </Assign.Value>
               <sap:WorkflowViewStateService.ViewState>
@@ -235,7 +305,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </Assign>
-            <Assign DisplayName="Assign loiNhuan" sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_5">
+            <Assign DisplayName="Assign loiNhuan" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_5">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:Double">
                   <CSharpReference x:TypeArguments="x:Double" sap2010:WorkflowViewState.IdRef="CSharpReference`1_20">loiNhuan</CSharpReference>
@@ -253,7 +323,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </Assign>
-            <If DisplayName="If check contains key maCH" sap:VirtualizedContainerService.HintSize="452,57" sap2010:WorkflowViewState.IdRef="If_2">
+            <If DisplayName="If check contains key maCH" sap:VirtualizedContainerService.HintSize="416,57" sap2010:WorkflowViewState.IdRef="If_2">
               <If.Condition>
                 <InArgument x:TypeArguments="x:Boolean">
                   <CSharpValue x:TypeArguments="x:Boolean" sap2010:WorkflowViewState.IdRef="CSharpValue`1_8">!dict.ContainsKey(maCH)</CSharpValue>
@@ -297,7 +367,7 @@
                 </Sequence>
               </If.Else>
             </If>
-            <Assign DisplayName="Assign tongDoanhThu" sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_7">
+            <Assign DisplayName="Assign tongDoanhThu" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_7">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:Double">
                   <CSharpReference x:TypeArguments="x:Double" sap2010:WorkflowViewState.IdRef="CSharpReference`1_7">dict[maCH][0]</CSharpReference>
@@ -315,7 +385,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </Assign>
-            <Assign DisplayName="Assign tongChiPhi" sap:VirtualizedContainerService.HintSize="452,175" sap2010:WorkflowViewState.IdRef="Assign_8">
+            <Assign DisplayName="Assign tongChiPhi" sap:VirtualizedContainerService.HintSize="416,175" sap2010:WorkflowViewState.IdRef="Assign_8">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:Double">
                   <CSharpReference x:TypeArguments="x:Double" sap2010:WorkflowViewState.IdRef="CSharpReference`1_8">dict[maCH][1]</CSharpReference>
@@ -333,7 +403,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </Assign>
-            <Assign DisplayName="Assign tongLoiNhuan" sap:VirtualizedContainerService.HintSize="452,166" sap2010:WorkflowViewState.IdRef="Assign_9">
+            <Assign DisplayName="Assign tongLoiNhuan" sap:VirtualizedContainerService.HintSize="416,166" sap2010:WorkflowViewState.IdRef="Assign_9">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:Double">
                   <CSharpReference x:TypeArguments="x:Double" sap2010:WorkflowViewState.IdRef="CSharpReference`1_9">dict[maCH][2]</CSharpReference>
@@ -366,20 +436,20 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ForEachRow>
-    <ui:BuildDataTable DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="488,92" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Mã_x0020_CH&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Tên_x0020_CH&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Địa_x0020_Chỉ&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Doanh_x0020_Thu&quot; msdata:Caption=&quot;&quot; type=&quot;xs:double&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Chi_x0020_Phí&quot; msdata:Caption=&quot;&quot; type=&quot;xs:double&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Lợi_x0020_Nhuận&quot; msdata:Caption=&quot;&quot; type=&quot;xs:double&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;">
+    <ui:BuildDataTable DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="514,92" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Mã_x0020_CH&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Tên_x0020_CH&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Địa_x0020_Chỉ&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Doanh_x0020_Thu&quot; msdata:Caption=&quot;&quot; type=&quot;xs:double&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Chi_x0020_Phí&quot; msdata:Caption=&quot;&quot; type=&quot;xs:double&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Lợi_x0020_Nhuận&quot; msdata:Caption=&quot;&quot; type=&quot;xs:double&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;">
       <ui:BuildDataTable.DataTable>
         <OutArgument x:TypeArguments="sd:DataTable">
           <CSharpReference x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpReference`1_21">out_dtOutput</CSharpReference>
         </OutArgument>
       </ui:BuildDataTable.DataTable>
     </ui:BuildDataTable>
-    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each maCH" sap:VirtualizedContainerService.HintSize="488,1061" sap2010:WorkflowViewState.IdRef="ForEach`1_1">
+    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each maCH" sap:VirtualizedContainerService.HintSize="514,640" sap2010:WorkflowViewState.IdRef="ForEach`1_1">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:String">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:String" Name="maCH" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="450,930" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="512,509" sap2010:WorkflowViewState.IdRef="Sequence_7">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="tenCH" />
               <Variable x:TypeArguments="x:String" Name="diaChiCH" />
@@ -389,41 +459,101 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DisplayName="Lookup Data Table" sap:VirtualizedContainerService.HintSize="416,329" sap2010:WorkflowViewState.IdRef="LookupDataTable_1" LookupColumnName="Mã CH" TargetColumnName="Tên CH">
-              <ui:LookupDataTable.CellValue>
-                <OutArgument x:TypeArguments="x:String">
-                  <CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_11">tenCH</CSharpReference>
-                </OutArgument>
-              </ui:LookupDataTable.CellValue>
-              <ui:LookupDataTable.DataTable>
-                <InArgument x:TypeArguments="sd:DataTable">
-                  <CSharpValue x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_22">in_dtStoreList</CSharpValue>
-                </InArgument>
-              </ui:LookupDataTable.DataTable>
-              <ui:LookupDataTable.LookupValue>
-                <InArgument x:TypeArguments="x:String">
-                  <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_15">maCH</CSharpValue>
-                </InArgument>
-              </ui:LookupDataTable.LookupValue>
-            </ui:LookupDataTable>
-            <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DisplayName="Lookup Data Table" sap:VirtualizedContainerService.HintSize="416,329" sap2010:WorkflowViewState.IdRef="LookupDataTable_2" LookupColumnName="Mã CH" TargetColumnName="Địa Chỉ">
-              <ui:LookupDataTable.CellValue>
-                <OutArgument x:TypeArguments="x:String">
-                  <CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_22">diaChiCH</CSharpReference>
-                </OutArgument>
-              </ui:LookupDataTable.CellValue>
-              <ui:LookupDataTable.DataTable>
-                <InArgument x:TypeArguments="sd:DataTable">
-                  <CSharpValue x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_23">in_dtStoreList</CSharpValue>
-                </InArgument>
-              </ui:LookupDataTable.DataTable>
-              <ui:LookupDataTable.LookupValue>
-                <InArgument x:TypeArguments="x:String">
-                  <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_17">maCH</CSharpValue>
-                </InArgument>
-              </ui:LookupDataTable.LookupValue>
-            </ui:LookupDataTable>
-            <ui:AddDataRow DataRow="{x:Null}" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="416,212" sap2010:WorkflowViewState.IdRef="AddDataRow_1">
+            <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="478,180" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
+              <ui:MultipleAssign.AssignOperations>
+                <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="x:String">
+                        <CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_36">tenCH</CSharpReference>
+                      </OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="x:String">
+                        <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_38">dictStoreInfo.ContainsKey(maCH) ? dictStoreInfo[maCH][0] : ""</CSharpValue>
+                      </InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                  <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+                    <ui:AssignOperation.To>
+                      <OutArgument x:TypeArguments="x:String">
+                        <CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_37">diaChiCH</CSharpReference>
+                      </OutArgument>
+                    </ui:AssignOperation.To>
+                    <ui:AssignOperation.Value>
+                      <InArgument x:TypeArguments="x:String">
+                        <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_39">dictStoreInfo.ContainsKey(maCH) ? dictStoreInfo[maCH][1] : ""</CSharpValue>
+                      </InArgument>
+                    </ui:AssignOperation.Value>
+                  </ui:AssignOperation>
+                </scg:List>
+              </ui:MultipleAssign.AssignOperations>
+            </ui:MultipleAssign>
+            <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="478,57" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+              <ui:CommentOut.Body>
+                <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="450,25" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DisplayName="Lookup Data Table" sap:VirtualizedContainerService.HintSize="416,57" sap2010:WorkflowViewState.IdRef="LookupDataTable_1" LookupColumnName="Mã CH" TargetColumnName="Tên CH">
+                    <ui:LookupDataTable.CellValue>
+                      <OutArgument x:TypeArguments="x:String">
+                        <CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_28">tenCH</CSharpReference>
+                      </OutArgument>
+                    </ui:LookupDataTable.CellValue>
+                    <ui:LookupDataTable.DataTable>
+                      <InArgument x:TypeArguments="sd:DataTable">
+                        <CSharpValue x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_22">in_dtStoreList</CSharpValue>
+                      </InArgument>
+                    </ui:LookupDataTable.DataTable>
+                    <ui:LookupDataTable.LookupValue>
+                      <InArgument x:TypeArguments="x:String">
+                        <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_15">maCH</CSharpValue>
+                      </InArgument>
+                    </ui:LookupDataTable.LookupValue>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:LookupDataTable>
+                  <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DisplayName="Lookup Data Table" sap:VirtualizedContainerService.HintSize="416,48" sap2010:WorkflowViewState.IdRef="LookupDataTable_2" LookupColumnName="Mã CH" TargetColumnName="Địa Chỉ">
+                    <ui:LookupDataTable.CellValue>
+                      <OutArgument x:TypeArguments="x:String">
+                        <CSharpReference x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpReference`1_30">diaChiCH</CSharpReference>
+                      </OutArgument>
+                    </ui:LookupDataTable.CellValue>
+                    <ui:LookupDataTable.DataTable>
+                      <InArgument x:TypeArguments="sd:DataTable">
+                        <CSharpValue x:TypeArguments="sd:DataTable" sap2010:WorkflowViewState.IdRef="CSharpValue`1_23">in_dtStoreList</CSharpValue>
+                      </InArgument>
+                    </ui:LookupDataTable.DataTable>
+                    <ui:LookupDataTable.LookupValue>
+                      <InArgument x:TypeArguments="x:String">
+                        <CSharpValue x:TypeArguments="x:String" sap2010:WorkflowViewState.IdRef="CSharpValue`1_17">maCH</CSharpValue>
+                      </InArgument>
+                    </ui:LookupDataTable.LookupValue>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:LookupDataTable>
+                </Sequence>
+              </ui:CommentOut.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:CommentOut>
+            <ui:AddDataRow DataRow="{x:Null}" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="478,212" sap2010:WorkflowViewState.IdRef="AddDataRow_1">
               <ui:AddDataRow.ArrayRow>
                 <InArgument x:TypeArguments="s:Object[]">
                   <CSharpValue x:TypeArguments="s:Object[]" sap2010:WorkflowViewState.IdRef="CSharpValue`1_18" xml:space="preserve">new object[] {
@@ -463,7 +593,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ForEach>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="488,166" sap2010:WorkflowViewState.IdRef="LogMessage_2">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="514,166" sap2010:WorkflowViewState.IdRef="LogMessage_2">
       <ui:LogMessage.Message>
         <InArgument x:TypeArguments="x:Object">
           <CSharpValue x:TypeArguments="x:Object" sap2010:WorkflowViewState.IdRef="CSharpValue`1_26">"data: " + out_dtOutput.Rows.Count.ToString() + " rows"</CSharpValue>
