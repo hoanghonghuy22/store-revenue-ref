@@ -3,12 +3,15 @@
   "entryPoints": [
     {
       "filePath": "Main.xaml",
-      "uniqueId": "c68a7d2b-7285-4a44-a7c2-a2a910d12571",
+      "uniqueId": "1046a331-700e-4c88-a6f4-449ad0aee989",
       "type": "process",
       "input": {
         "type": "object",
         "properties": {
-          "in_strSheetName": {
+          "in_OrchestratorQueueName": {
+            "type": "string"
+          },
+          "in_OrchestratorQueueFolder": {
             "type": "string"
           }
         },

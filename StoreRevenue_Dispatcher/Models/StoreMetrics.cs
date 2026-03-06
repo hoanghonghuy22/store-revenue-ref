@@ -1,4 +1,4 @@
-namespace StoreRevenue_Dispatcher
+namespace Models
 {
     public class StoreMetrics
     {
